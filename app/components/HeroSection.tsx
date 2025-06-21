@@ -59,7 +59,7 @@ export default function HeroSection() {
               className="flex flex-wrap gap-4 mb-10 justify-center md:justify-start"
             >
               <motion.a
-                href="#courses"
+                href="/courses"
                 whileHover={{ scale: 1.05, y: -3 }}
                 whileTap={{ scale: 0.98 }}
                 className="bg-gray-900 hover:bg-gray-800 text-white font-bold px-8 py-4 rounded-xl shadow-lg hover:shadow-xl transition-all flex items-center justify-center gap-2"

@@ -147,7 +147,7 @@ export default function ChallengePackages() {
                   ))}
                 </ul>
 
-                <Link href={"/checkout"}>
+                <Link href={"/courses"}>
                   <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}

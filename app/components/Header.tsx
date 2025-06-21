@@ -71,7 +71,7 @@ export default function Header() {
             className="ml-4"
           >
             <Link
-              href="/checkout"
+              href="/courses"
               className="bg-[var(--primary-yellow)] text-gray-900 px-5 py-2 rounded-lg font-semibold shadow-sm hover:shadow-md transition-all hover:bg-[var(--secondary-yellow)] flex items-center gap-2"
             >
               কোর্সে ভর্তি হন
@@ -112,7 +112,7 @@ export default function Header() {
               </Link>
             ))}
             <Link
-              href="/checkout"
+              href="/courses"
               className="block bg-[var(--primary-yellow)] text-gray-900 px-5 py-2.5 rounded-lg font-semibold text-center mt-2"
               onClick={() => setMobileMenuOpen(false)}
             >
