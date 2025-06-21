@@ -92,7 +92,7 @@ export default function AffiliatePage() {
               করুন:
               <br />
               📧 support@wetraineducation.com <br />
-              📞 +880 1711-777888
+              📞 +880 1887-864760
             </p>
           </div>
         </motion.div>

@@ -25,7 +25,7 @@ export default function Footer() {
 
   const contactInfo = [
     { icon: Mail, text: "support@wetraineducation.com" },
-    { icon: Phone, text: "+৮৮০ ১৭১১-৭৭৭৮৮৮" },
+    { icon: Phone, text: "+880 1887-864760" },
     { icon: MapPin, text: "মিরপুর, ঢাকা, বাংলাদেশ" },
   ];
 
