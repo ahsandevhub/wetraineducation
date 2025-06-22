@@ -17,8 +17,8 @@ export default function Footer() {
 
   const links = [
     { name: "আমাদের সম্পর্কে", href: "about" },
-    { name: "প্রশ্নোত্তর", href: "#faq" },
-    { name: "ডিসক্লেইমার", href: "/disclaimer" },
+    { name: "প্রশ্নোত্তর", href: "/faq" },
+    { name: "রিফান্ড নীতি", href: "/refund" },
     { name: "ব্যবহারের শর্তাবলী", href: "/terms" },
     { name: "অ্যাফিলিয়েট তথ্য", href: "/affiliate" },
   ];
