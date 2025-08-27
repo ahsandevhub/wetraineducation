@@ -51,7 +51,7 @@ export default function CoursesPage() {
   return (
     <>
       {/* Hero-style Header */}
-      <section className="relative bg-gradient-to-b from-yellow-200 to-white py-20 text-center">
+      <section className="relative bg-gradient-to-b from-yellow-200 to-white sm:py-20 py-10 text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

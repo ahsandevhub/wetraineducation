@@ -14,7 +14,8 @@ export default function Header() {
     { id: 1, name: "হোম", href: "/" },
     { id: 2, name: "আমাদের সম্পর্কে", href: "/about" },
     { id: 6, name: "ব্যবহারের শর্তাবলী", href: "/terms" },
-    { id: 7, name: "রিফান্ড নীতি", href: "/refund" },
+    // { id: 7, name: "রিফান্ড নীতি", href: "/refund" },
+    { id: 7, name: "আমাদের টিম", href: "/our-teams" },
     { id: 8, name: "অ্যাফিলিয়েট তথ্য", href: "/affiliate" },
     { id: 5, name: "FAQ", href: "/faq" },
   ];
