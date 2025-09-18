@@ -48,6 +48,7 @@ export default function AdminComplaintsPage() {
   const router = useRouter();
 
   const [complaints, setComplaints] = useState<Complaint[]>([]);
+  const [cachedComplaints, setCachedComplaints] = useState<Complaint[]>([]);
   const [pagination, setPagination] = useState<Pagination | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedComplaint, setSelectedComplaint] = useState<Complaint | null>(
@@ -73,6 +74,11 @@ export default function AdminComplaintsPage() {
     async (page = 1) => {
       try {
         setLoading(true);
+        // Check if cached data exists
+        if (cachedComplaints.length > 0) {
+          setComplaints(cachedComplaints);
+          return;
+        }
         const params = new URLSearchParams({
           page: page.toString(),
           limit: "10",
@@ -96,6 +102,7 @@ export default function AdminComplaintsPage() {
         if (response.ok) {
           const data = await response.json();
           setComplaints(data.complaints);
+          setCachedComplaints(data.complaints); // Cache the complaints
           setPagination(data.pagination);
         }
       } catch (error) {
@@ -104,7 +111,7 @@ export default function AdminComplaintsPage() {
         setLoading(false);
       }
     },
-    [filters]
+    [filters, cachedComplaints]
   );
 
   useEffect(() => {
@@ -325,7 +332,7 @@ export default function AdminComplaintsPage() {
                 onChange={(e) =>
                   setFilters({ ...filters, againstPersonId: e.target.value })
                 }
-                className="block w-full border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 px-3 py-2"
+                className="block w-full border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 px-3 py-1"
               >
                 <option value="">সব টিম মেম্বার</option>
                 <optgroup label="Director">
@@ -409,7 +416,7 @@ export default function AdminComplaintsPage() {
                 onChange={(e) =>
                   setFilters({ ...filters, isRead: e.target.value })
                 }
-                className="block w-full border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 px-3 py-2"
+                className="block w-full border border-gray-300 rounded-lg focus:ring-yellow-500 focus:border-yellow-500 px-3 py-1"
               >
                 <option value="">সব</option>
                 <option value="false">অপঠিত</option>

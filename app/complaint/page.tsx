@@ -150,10 +150,10 @@ export default function ComplaintPage() {
                 id="againstPerson"
                 value={selectedPerson}
                 onChange={(e) => setSelectedPerson(e.target.value)}
-                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-[var(--primary-yellow)] focus:border-[var(--primary-yellow)] sm:text-sm rounded-md"
+                className="mt-1 block w-full pl-3 pr-10 sm:py-2 py-1 text-base border border-gray-300 focus:outline-none focus:ring-[var(--primary-yellow)] focus:border-[var(--primary-yellow)] sm:text-sm rounded-md"
                 required
               >
-                <option value="">একটি বিকল্প নির্বাচন করুন...</option>
+                <option value="">একজন সিলেক্ট করুন...</option>
                 <option value="none">
                   সাধারণ অভিযোগ/মতামত (কোনো নির্দিষ্ট ব্যক্তির বিরুদ্ধে নয়)
                 </option>
@@ -263,7 +263,7 @@ export default function ComplaintPage() {
             )}
 
             {/* Submit Button */}
-            <div className="flex items-center justify-end">
+            <div className="flex items-center sm:justify-end justify-center">
               <button
                 type="submit"
                 disabled={isSubmitting || !selectedPerson || !complaint.trim()}

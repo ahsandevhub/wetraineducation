@@ -120,7 +120,7 @@ export default function TextFormatter({
 
   return (
     <div className="w-full">
-      <div className="mb-4 flex flex-wrap gap-2">
+      <div className="mb-4 hidden flex-wrap gap-2">
         <button
           type="button"
           onClick={handleAnonymize}
