@@ -135,7 +135,7 @@ export default function ComplaintPage() {
         </div>
 
         {/* Form */}
-        <div className="bg-white border border-gray-200 rounded-xl p-8">
+        <div className="sm:bg-white sm:border border-gray-200 sm:rounded-xl sm:p-8">
           <form onSubmit={handleSubmit}>
             {/* Against Person Selection */}
             <div className="mb-8">
