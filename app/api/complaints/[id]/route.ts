@@ -37,7 +37,7 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     // Check authentication
@@ -50,6 +50,9 @@ export async function PATCH(
     const { isRead } = body;
 
     await connectDB();
+
+    // Await context before using params
+    const { params } = context;
 
     const complaint = await Complaint.findByIdAndUpdate(
       params.id,
@@ -76,7 +79,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
     // Check authentication and ensure super-admin role
@@ -89,6 +92,9 @@ export async function DELETE(
     }
 
     await connectDB();
+
+    // Await context before using params
+    const { params } = context;
 
     const complaint = await Complaint.findByIdAndDelete(params.id);
 

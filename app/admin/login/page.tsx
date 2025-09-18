@@ -1,19 +1,40 @@
 "use client";
 
 import { AlertCircle, Eye, EyeOff, Lock, User } from "lucide-react";
-import { getSession, signIn } from "next-auth/react";
+import { getSession, signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function AdminLoginPage() {
+export default function Page() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const router = useRouter();
+  const { status } = useSession();
+
+  // Client-side redirect once authenticated
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.replace("/admin/complaints");
+    }
+  }, [status, router]);
+
+  // Loading state while NextAuth checks session
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-yellow-500 mx-auto"></div>
+          <p className="mt-2 text-gray-600">লোড হচ্ছে...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");
@@ -22,16 +43,16 @@ export default function AdminLoginPage() {
       const result = await signIn("credentials", {
         username,
         password,
-        redirect: false,
+        redirect: false, // we'll navigate manually
       });
 
       if (result?.error) {
         setError("ভুল ইউজার/পাসওয়ার্ড। অনুগ্রহ করে আবার চেষ্টা করুন।");
       } else {
-        // Check if login was successful
-        const session = await getSession();
-        if (session) {
-          router.push("/admin/complaints");
+        // Double-check session, then navigate
+        const sess = await getSession();
+        if (sess) {
+          router.replace("/admin/complaints");
         } else {
           setError("লগইন ব্যর্থ হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।");
         }
@@ -113,7 +134,8 @@ export default function AdminLoginPage() {
                 <button
                   type="button"
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={() => setShowPassword((s) => !s)}
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
                     <EyeOff className="h-5 w-5 text-gray-400" />
@@ -162,7 +184,7 @@ export default function AdminLoginPage() {
                       <path
                         className="opacity-75"
                         fill="currentColor"
-                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938ল3-2.647z"
                       ></path>
                     </svg>
                     সাইন ইন করা হচ্ছে...

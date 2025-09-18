@@ -143,7 +143,8 @@ export default function ComplaintPage() {
                 htmlFor="againstPerson"
                 className="block text-sm font-medium text-gray-700 mb-3"
               >
-                যার সম্পর্কে <span className="text-red-500">*</span>
+                যাহার সম্পর্কে অগিযোগ/মতামত প্রদান করতে চান{" "}
+                <span className="text-red-500">*</span>
               </label>
               <select
                 id="againstPerson"
@@ -153,11 +154,75 @@ export default function ComplaintPage() {
                 required
               >
                 <option value="">একজন টিম মেম্বার নির্বাচন করুন...</option>
-                {teamMembers.map((member) => (
-                  <option key={member.id} value={member.id}>
-                    {member.name} - {member.designation} ({member.department})
-                  </option>
-                ))}
+                {/* Administration: Director, HR, BDE */}
+                <optgroup label="Director">
+                  {teamMembers
+                    .filter(
+                      (m) =>
+                        m.department === "Administration" &&
+                        m.designation.toLowerCase().includes("director")
+                    )
+                    .map((member) => (
+                      <option key={member.id} value={member.id}>
+                        {member.name} - Director
+                      </option>
+                    ))}
+                </optgroup>
+                <optgroup label="HR">
+                  {teamMembers
+                    .filter(
+                      (m) =>
+                        m.department === "Administration" &&
+                        m.designation.toLowerCase().includes("human resource")
+                    )
+                    .map((member) => (
+                      <option key={member.id} value={member.id}>
+                        {member.name} - HR
+                      </option>
+                    ))}
+                </optgroup>
+                <optgroup label="BDE">
+                  {teamMembers
+                    .filter(
+                      (m) =>
+                        m.department === "Administration" &&
+                        m.designation
+                          .toLowerCase()
+                          .includes("business development executive")
+                    )
+                    .map((member) => (
+                      <option key={member.id} value={member.id}>
+                        {member.name} - BDE
+                      </option>
+                    ))}
+                </optgroup>
+                <optgroup label="IT">
+                  {teamMembers
+                    .filter((m) => m.department === "IT")
+                    .map((member) => (
+                      <option key={member.id} value={member.id}>
+                        {member.name} - {member.designation}
+                      </option>
+                    ))}
+                </optgroup>
+                <optgroup label="Customer Service">
+                  {teamMembers
+                    .filter((m) => m.department === "Customer Service")
+                    .map((member) => (
+                      <option key={member.id} value={member.id}>
+                        {member.name} - {member.designation}
+                      </option>
+                    ))}
+                </optgroup>
+                <optgroup label="Sales/Marketing">
+                  {teamMembers
+                    .filter((m) => m.department === "Marketing")
+                    .map((member) => (
+                      <option key={member.id} value={member.id}>
+                        {member.name} - {member.designation}
+                      </option>
+                    ))}
+                </optgroup>
               </select>
             </div>
 
@@ -167,7 +232,7 @@ export default function ComplaintPage() {
                 htmlFor="complaint"
                 className="block text-sm font-medium text-gray-700 mb-3"
               >
-                আপনার অভিযোগ <span className="text-red-500">*</span>
+                আপনার অভিযোগ/মতামত <span className="text-red-500">*</span>
               </label>
               <TextFormatter
                 value={complaint}
