@@ -17,7 +17,7 @@ export default function ComplaintPage() {
 
     if (!selectedPerson || !complaint.trim()) {
       setError(
-        "অনুগ্রহ করে একজন ব্যক্তিকে নির্বাচন করুন এবং আপনার অভিযোগ লিখুন।"
+        "অনুগ্রহ করে একটি বিকল্প নির্বাচন করুন এবং আপনার অভিযোগ/মতামত লিখুন।"
       );
       return;
     }
@@ -25,12 +25,12 @@ export default function ComplaintPage() {
     // Strip HTML tags for length validation
     const plainTextComplaint = complaint.replace(/<[^>]*>/g, "").trim();
     if (plainTextComplaint.length < 10) {
-      setError("অভিযোগ কমপক্ষে ১০ অক্ষরের হতে হবে।");
+      setError("অভিযোগ/মতামত কমপক্ষে ১০ অক্ষরের হতে হবে।");
       return;
     }
 
     if (plainTextComplaint.length > 5000) {
-      setError("অভিযোগ ৫০০০ অক্ষরের বেশি হওয়া যাবে না।");
+      setError("অভিযোগ/মতামত ৫০০০ অক্ষরের বেশি হওয়া যাবে না।");
       return;
     }
 
@@ -44,7 +44,7 @@ export default function ComplaintPage() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          againstPersonId: selectedPerson,
+          againstPersonId: selectedPerson === "none" ? null : selectedPerson,
           complaint: complaint,
         }),
       });
@@ -56,7 +56,7 @@ export default function ComplaintPage() {
         setSelectedPerson("");
         setComplaint("");
       } else {
-        setError(data.error || "অভিযোগ জমা দিতে ব্যর্থ হয়েছে।");
+        setError(data.error || "অভিযোগ/মতামত জমা দিতে ব্যর্থ হয়েছে।");
       }
     } catch {
       setError("নেটওয়ার্ক ত্রুটি। অনুগ্রহ করে আবার চেষ্টা করুন।");
@@ -76,11 +76,11 @@ export default function ComplaintPage() {
               </div>
             </div>
             <h2 className="text-2xl font-bold text-gray-900 mb-4">
-              অভিযোগ সফলভাবে জমা হয়েছে
+              অভিযোগ/মতামত সফলভাবে জমা হয়েছে
             </h2>
             <p className="text-gray-600 mb-8">
-              আপনার অজ্ঞাত অভিযোগটি জমা হয়েছে এবং প্রশাসন এটি পর্যালোচনা করবে।
-              আমাদের দৃষ্টি আকর্ষণ করার জন্য ধন্যবাদ।
+              আপনার অজ্ঞাত অভিযোগ/মতামতটি জমা হয়েছে এবং প্রশাসন এটি পর্যালোচনা
+              করবে। আমাদের দৃষ্টি আকর্ষণ করার জন্য ধন্যবাদ।
             </p>
             <button
               onClick={() => {
@@ -89,7 +89,7 @@ export default function ComplaintPage() {
               }}
               className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-lg text-gray-900 bg-[var(--primary-yellow)] hover:bg-[var(--secondary-yellow)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[var(--primary-yellow)]"
             >
-              আরেকটি অভিযোগ জমা দিন
+              আরেকটি অভিযোগ/মতামত জমা দিন
             </button>
           </div>
         </div>
@@ -107,12 +107,12 @@ export default function ComplaintPage() {
               <Lock className="h-6 w-6 text-gray-900" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
-              অজ্ঞাতনামা অভিযোগ বাক্স
+              অজ্ঞাতনামা অভিযোগ/মতামত বাক্স
             </h1>
           </div>
           <p className="text-gray-700">
-            টিম মেম্বারদের সম্পর্কে অভিযোগ জানানোর জন্য এটি একটি নিরাপদ এবং
-            অজ্ঞাতনামা প্ল্যাটফর্ম। আপনার পরিচয় সম্পূর্ণ গোপন রাখা হবে।
+            টিম মেম্বারদের সম্পর্কে অভিযোগ/মতামত জানানোর জন্য এটি একটি নিরাপদ
+            এবং অজ্ঞাতনামা প্ল্যাটফর্ম। আপনার পরিচয় সম্পূর্ণ গোপন রাখা হবে।
           </p>
         </div>
       </section>
@@ -125,7 +125,7 @@ export default function ComplaintPage() {
             </div>
             <div className="ml-3">
               <p className="text-sm text-yellow-800">
-                <strong>গোপনীয়তার নিশ্চয়তা:</strong> এই অভিযোগ সম্পূর্ণ
+                <strong>গোপনীয়তার নিশ্চয়তা:</strong> এই অভিযোগ/মতামত সম্পূর্ণ
                 অজ্ঞাত। কোনো ব্যক্তিগত তথ্য সংগ্রহ করা হয় না। আপনার লেখার ধরন
                 স্বাভাবিক করতে নিচের টেক্সট ফরম্যাটিং টুলগুলো ব্যবহার করে আপনার
                 পরিচয় আরও সুরক্ষিত রাখুন।
@@ -143,7 +143,7 @@ export default function ComplaintPage() {
                 htmlFor="againstPerson"
                 className="block text-sm font-medium text-gray-700 mb-3"
               >
-                যাহার সম্পর্কে অগিযোগ/মতামত প্রদান করতে চান{" "}
+                যাহার নিকট অভিযোগ/মতামত প্রদান করতে চান{" "}
                 <span className="text-red-500">*</span>
               </label>
               <select
@@ -153,7 +153,10 @@ export default function ComplaintPage() {
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border border-gray-300 focus:outline-none focus:ring-[var(--primary-yellow)] focus:border-[var(--primary-yellow)] sm:text-sm rounded-md"
                 required
               >
-                <option value="">একজন টিম মেম্বার নির্বাচন করুন...</option>
+                <option value="">একটি বিকল্প নির্বাচন করুন...</option>
+                <option value="none">
+                  সাধারণ অভিযোগ/মতামত (কোনো নির্দিষ্ট ব্যক্তির বিরুদ্ধে নয়)
+                </option>
                 {/* Administration: Director, HR, BDE */}
                 <optgroup label="Director">
                   {teamMembers
@@ -232,12 +235,12 @@ export default function ComplaintPage() {
                 htmlFor="complaint"
                 className="block text-sm font-medium text-gray-700 mb-3"
               >
-                আপনার অভিযোগ/মতামত <span className="text-red-500">*</span>
+                আপনার অভিযোগ/মতামত/মতামত <span className="text-red-500">*</span>
               </label>
               <TextFormatter
                 value={complaint}
                 onChange={setComplaint}
-                placeholder="আপনার অভিযোগ বিস্তারিতভাবে লিখুন। অজ্ঞাত থাকতে উপরের ফরম্যাটিং টুলগুলো ব্যবহার করুন..."
+                placeholder="আপনার অভিযোগ/মতামত বিস্তারিতভাবে লিখুন। অজ্ঞাত থাকতে উপরের ফরম্যাটিং টুলগুলো ব্যবহার করুন..."
               />
               <p className="mt-2 text-sm text-gray-500">
                 ন্যূনতম ১০ অক্ষর, সর্বোচ্চ ৫০০০ অক্ষর। বর্তমান:{" "}
@@ -293,7 +296,7 @@ export default function ComplaintPage() {
                 ) : (
                   <>
                     <Send className="h-5 w-5 mr-2" />
-                    অভিযোগ জমা দিন
+                    অভিযোগ/মতামত জমা দিন
                   </>
                 )}
               </button>
@@ -304,9 +307,9 @@ export default function ComplaintPage() {
         {/* Footer Notice */}
         <div className="mt-8 text-center text-sm text-gray-500">
           <p>
-            এই অভিযোগ ব্যবস্থা শুধুমাত্র এইচআর এবং প্রশাসন দ্বারা পর্যবেক্ষিত
-            হয়। সকল অভিযোগ কঠোর গোপনীয়তায় রাখা হয় এবং যথাযথভাবে তদন্ত করা
-            হবে।
+            এই অভিযোগ/মতামত ব্যবস্থা শুধুমাত্র এইচআর এবং প্রশাসন দ্বারা
+            পর্যবেক্ষিত হয়। সকল অভিযোগ/মতামত কঠোর গোপনীয়তায় রাখা হয় এবং
+            যথাযথভাবে তদন্ত করা হবে।
           </p>
         </div>
       </div>

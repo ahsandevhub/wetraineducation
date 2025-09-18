@@ -78,7 +78,7 @@ export default function Page() {
             অ্যাডমিন লগইন
           </h2>
           <p className="mt-2 text-center text-sm text-gray-700">
-            অভিযোগ ব্যবস্থাপনা সিস্টেমে প্রবেশ করুন
+            অভিযোগ/মতামত ব্যবস্থাপনা সিস্টেমে প্রবেশ করুন
           </p>
         </div>
       </section>

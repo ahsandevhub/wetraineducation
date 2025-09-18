@@ -61,9 +61,9 @@ export async function POST(request: NextRequest) {
     const { againstPersonId, complaint } = body;
 
     // Validate input
-    if (!againstPersonId || !complaint) {
+    if (!complaint) {
       return NextResponse.json(
-        { error: "Against person and complaint are required" },
+        { error: "Complaint is required" },
         { status: 400 }
       );
     }
@@ -75,15 +75,18 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    // Validate against person exists
-    const againstPerson = teamMembers.find(
-      (member) => member.id === againstPersonId
-    );
-    if (!againstPerson) {
-      return NextResponse.json(
-        { error: "Invalid team member selected" },
-        { status: 400 }
+    // Validate against person exists (if provided)
+    let againstPerson = null;
+    if (againstPersonId) {
+      againstPerson = teamMembers.find(
+        (member) => member.id === againstPersonId
       );
+      if (!againstPerson) {
+        return NextResponse.json(
+          { error: "Invalid team member selected" },
+          { status: 400 }
+        );
+      }
     }
 
     // Connect to database
@@ -91,8 +94,8 @@ export async function POST(request: NextRequest) {
 
     // Create complaint
     const newComplaint = new Complaint({
-      againstPersonId,
-      againstPersonName: againstPerson.name,
+      againstPersonId: againstPersonId || undefined,
+      againstPersonName: againstPerson ? againstPerson.name : undefined,
       complaint: complaint.trim(),
       ipAddress: ip !== "unknown" ? ip : undefined,
     });

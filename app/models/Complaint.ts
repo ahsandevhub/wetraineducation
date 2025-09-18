@@ -1,8 +1,8 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 export interface IComplaint extends Document {
-  againstPersonId: string;
-  againstPersonName: string;
+  againstPersonId?: string;
+  againstPersonName?: string;
   complaint: string;
   submittedAt: Date;
   isRead: boolean;
@@ -12,11 +12,11 @@ export interface IComplaint extends Document {
 const ComplaintSchema = new Schema<IComplaint>({
   againstPersonId: {
     type: String,
-    required: true,
+    required: false,
   },
   againstPersonName: {
     type: String,
-    required: true,
+    required: false,
   },
   complaint: {
     type: String,

@@ -166,14 +166,14 @@ export default function TextFormatter({
         <div className="min-h-[200px] p-4 border border-gray-300 rounded-lg bg-gray-50 whitespace-pre-wrap text-sm text-gray-900">
           {value.replace(/<[^>]*>/g, "") ||
             placeholder ||
-            "আপনার অভিযোগ এখানে লিখুন..."}
+            "আপনার অভিযোগ/মতামত এখানে লিখুন..."}
         </div>
       ) : (
         <div className="rounded-lg">
           <textarea
             value={value.replace(/<[^>]*>/g, "")} // Strip HTML tags for plain text
             onChange={(e) => onChange(e.target.value)}
-            placeholder={placeholder || "আপনার অভিযোগ এখানে লিখুন..."}
+            placeholder={placeholder || "আপনার অভিযোগ/মতামত এখানে লিখুন..."}
             className="w-full border border-gray-300 min-h-[200px] p-3 rounded-lg resize-y focus:outline-none focus:ring-2 focus:ring-[var(--primary-yellow)] focus:border-transparent"
             rows={8}
           />
