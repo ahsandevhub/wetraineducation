@@ -11,10 +11,11 @@ import {
   EyeOff,
   FileText,
   Filter,
+  Grid3X3,
+  List,
   LogOut,
   RefreshCw,
   Search,
-  Shield,
   Trash2,
   User,
   Users,
@@ -60,6 +61,7 @@ export default function AdminComplaintsPage() {
     search: "",
     category: "",
   });
+  const [viewMode, setViewMode] = useState<"list" | "grid">("grid");
 
   // Redirect if not authenticated
   useEffect(() => {
@@ -193,44 +195,42 @@ export default function AdminComplaintsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-20">
+    <div className="min-h-screen bg-white pb-20">
       {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
-              <div className="bg-yellow-500 p-2 rounded-lg mr-3 shadow-sm">
-                <ClipboardList className="h-6 w-6 text-gray-900" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">
-                  অভিযোগ/মতামত ব্যবস্থাপনা
-                </h1>
-                <p className="text-sm text-gray-600 flex items-center">
-                  <Shield className="h-4 w-4 mr-1" />
-                  স্বাগতম, {session.user.username}
-                </p>
-              </div>
+      <section className="relative flex flex-col justify-center items-center bg-gradient-to-b from-yellow-200 to-white py-10 sm:py-14 text-center">
+        <div className="max-w-3xl mx-auto px-6">
+          <div className="flex items-center justify-center mb-3">
+            <div className="bg-[var(--primary-yellow)] p-2 rounded-lg mr-3">
+              <ClipboardList className="h-6 w-6 text-gray-900" />
             </div>
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => fetchComplaints(pagination?.page || 1)}
-                className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors shadow-sm"
-              >
-                <RefreshCw className="h-4 w-4 mr-2" />
-                রিফ্রেশ
-              </button>
-              <button
-                onClick={() => signOut()}
-                className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-red-600 hover:bg-red-700 transition-colors shadow-sm"
-              >
-                <LogOut className="h-4 w-4 mr-2" />
-                লগআউট
-              </button>
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
+              অভিযোগ/মতামত ব্যবস্থাপনা
+            </h1>
+          </div>
+          <div className="bg-gradient-to-r mb-5 from-blue-600 to-purple-600 text-white px-4 py-2 rounded-full inline-flex items-center shadow-md">
+            <User className="h-4 w-4 mr-2" />
+            <span className="text-sm font-medium">
+              স্বাগতম, {session.user.username}
+            </span>
+          </div>
+          <div className="flex items-center justify-center space-x-3">
+            <button
+              onClick={() => fetchComplaints(pagination?.page || 1)}
+              className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 transition-colors shadow-sm"
+            >
+              <RefreshCw className="h-4 w-4 mr-2" />
+              রিফ্রেশ
+            </button>
+            <button
+              onClick={() => signOut()}
+              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-lg text-white bg-red-600 hover:bg-red-700 transition-colors shadow-sm"
+            >
+              <LogOut className="h-4 w-4 mr-2" />
+              লগআউট
+            </button>
           </div>
         </div>
-      </header>
+      </section>
 
       {/* Stats Overview */}
       <section className="mt-6">
@@ -442,10 +442,36 @@ export default function AdminComplaintsPage() {
             </div>
 
             <div className="flex items-center space-x-2">
-              <button className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
+              {/* View Toggle - Hidden on mobile */}
+              <div className="hidden md:flex items-center bg-gray-100 rounded-lg p-1">
+                <button
+                  onClick={() => setViewMode("list")}
+                  className={`p-1.5 rounded-md transition-colors ${
+                    viewMode === "list"
+                      ? "bg-white text-blue-600 shadow-sm"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                  title="তালিকা দৃশ্য"
+                >
+                  <List className="h-4 w-4" />
+                </button>
+                <button
+                  onClick={() => setViewMode("grid")}
+                  className={`p-1.5 rounded-md transition-colors ${
+                    viewMode === "grid"
+                      ? "bg-white text-blue-600 shadow-sm"
+                      : "text-gray-500 hover:text-gray-700"
+                  }`}
+                  title="গ্রিড দৃশ্য"
+                >
+                  <Grid3X3 className="h-4 w-4" />
+                </button>
+              </div>
+
+              <button className="p-2 hidden rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
                 <BarChart3 className="h-4 w-4" />
               </button>
-              <button className="p-2 rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
+              <button className="p-2 hidden rounded-lg text-gray-500 hover:bg-gray-100 transition-colors">
                 <Download className="h-4 w-4" />
               </button>
             </div>
@@ -469,7 +495,13 @@ export default function AdminComplaintsPage() {
               </button>
             </div>
           ) : (
-            <div className="space-y-5">
+            <div
+              className={
+                viewMode === "grid"
+                  ? "grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-5"
+                  : "space-y-5"
+              }
+            >
               {complaints.map((complaint) => {
                 const personInfo = complaint.againstPersonId
                   ? getPersonInfo(complaint.againstPersonId)
@@ -478,12 +510,17 @@ export default function AdminComplaintsPage() {
                 return (
                   <div
                     key={complaint._id}
-                    className={`p-5 rounded-xl transition-colors border ${
+                    className={`relative p-5 rounded-xl transition-colors border ${
                       complaint.isRead
-                        ? "bg-white border-gray-200"
+                        ? "bg-gray-50 border-gray-200"
                         : "bg-blue-50 border-blue-200"
                     }`}
                   >
+                    {/* {complaint.isRead && (
+                      <span className="absolute -top-4 -left-4 bg-green-200 text-green-500 rounded-full p-2">
+                        <CheckCheck className="size-4" />
+                      </span>
+                    )} */}
                     <div className="flex justify-between items-start mb-4">
                       <div className="flex items-start space-x-3">
                         <div
@@ -518,10 +555,10 @@ export default function AdminComplaintsPage() {
                       </div>
 
                       <div
-                        className={`px-2.5 py-1 rounded-full text-xs font-medium ${
+                        className={`px-4 py-1 rounded-full border text-xs font-medium ${
                           complaint.isRead
-                            ? "bg-gray-100 text-gray-700"
-                            : "bg-blue-100 text-blue-700"
+                            ? "bg-green-100 text-green-700 border-green-200"
+                            : "bg-blue-100 text-blue-700 border-blue-200"
                         }`}
                       >
                         {complaint.isRead ? "পঠিত" : "নতুন"}
@@ -529,8 +566,8 @@ export default function AdminComplaintsPage() {
                     </div>
 
                     <div
-                      className={`border-l-2 pl-4 ml-4 mb-4 ${
-                        complaint.isRead ? "border-gray-200" : "border-blue-500"
+                      className={`mb-4 ${
+                        complaint.isRead ? "border-gray-400" : "border-blue-400"
                       }`}
                     >
                       <div className="mb-3">
@@ -560,7 +597,7 @@ export default function AdminComplaintsPage() {
                       </div>
                     </div>
 
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center mt-auto">
                       <div>
                         {complaint.category && (
                           <span className="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-700">
@@ -619,7 +656,7 @@ export default function AdminComplaintsPage() {
           )}
 
           {pagination && pagination.totalPages > 1 && (
-            <div className="px-5 py-4 border-t border-gray-100">
+            <div className="py-8 border-t border-gray-100">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-gray-700 mb-4 sm:mb-0">
                   দেখানো হচ্ছে{" "}
