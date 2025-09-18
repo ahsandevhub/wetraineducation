@@ -180,7 +180,7 @@ export default function TextFormatter({
         </div>
       )}
 
-      <div className="mt-4 text-sm text-gray-600">
+      <div className="mt-4 hidden text-sm text-gray-600">
         <p>
           <strong>গোপনীয়তার টিপস:</strong>
         </p>

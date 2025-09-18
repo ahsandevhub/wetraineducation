@@ -235,12 +235,12 @@ export default function ComplaintPage() {
                 htmlFor="complaint"
                 className="block text-sm font-medium text-gray-700 mb-3"
               >
-                আপনার অভিযোগ/মতামত/মতামত <span className="text-red-500">*</span>
+                আপনার অভিযোগ/মতামত <span className="text-red-500">*</span>
               </label>
               <TextFormatter
                 value={complaint}
                 onChange={setComplaint}
-                placeholder="আপনার অভিযোগ/মতামত বিস্তারিতভাবে লিখুন। অজ্ঞাত থাকতে উপরের ফরম্যাটিং টুলগুলো ব্যবহার করুন..."
+                placeholder="আপনার অভিযোগ/মতামত বিস্তারিতভাবে লিখুন..."
               />
               <p className="mt-2 text-sm text-gray-500">
                 ন্যূনতম ১০ অক্ষর, সর্বোচ্চ ৫০০০ অক্ষর। বর্তমান:{" "}
