@@ -17,7 +17,9 @@ export async function GET(
     await connectDB();
 
     const resolvedParams = await params;
-    const complaint = await Complaint.findById(resolvedParams.id).select("-ipAddress");
+    const complaint = await Complaint.findById(resolvedParams.id).select(
+      "-ipAddress"
+    );
 
     if (!complaint) {
       return NextResponse.json(
