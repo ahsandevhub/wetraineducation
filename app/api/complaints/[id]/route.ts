@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check authentication
@@ -16,7 +16,8 @@ export async function GET(
 
     await connectDB();
 
-    const complaint = await Complaint.findById(params.id).select("-ipAddress");
+    const resolvedParams = await params;
+    const complaint = await Complaint.findById(resolvedParams.id).select("-ipAddress");
 
     if (!complaint) {
       return NextResponse.json(
@@ -37,7 +38,7 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check authentication
@@ -51,8 +52,8 @@ export async function PATCH(
 
     await connectDB();
 
-    // Await context before using params
-    const { params } = context;
+    // Await params before using
+    const params = await context.params;
 
     const complaint = await Complaint.findByIdAndUpdate(
       params.id,
@@ -79,7 +80,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
     // Check authentication and ensure super-admin role
@@ -93,8 +94,8 @@ export async function DELETE(
 
     await connectDB();
 
-    // Await context before using params
-    const { params } = context;
+    // Await params before using
+    const params = await context.params;
 
     const complaint = await Complaint.findByIdAndDelete(params.id);
 
