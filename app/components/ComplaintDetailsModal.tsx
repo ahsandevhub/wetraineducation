@@ -79,7 +79,7 @@ export default function ComplaintDetailsModal({
           </div>
           <button
             onClick={() => onMarkAsRead(complaint._id, !complaint.isRead)}
-            className={`py-1 px-3 ml-auto mr-3 flex gap-2 items-center rounded-full font-medium transition-colors ${
+            className={`py-1 sm:flex hidden px-3 ml-auto mr-3 gap-2 items-center rounded-full font-medium transition-colors ${
               complaint.isRead
                 ? "bg-green-500 text-white hover:bg-green-600"
                 : "bg-yellow-500 text-white hover:bg-yellow-600"

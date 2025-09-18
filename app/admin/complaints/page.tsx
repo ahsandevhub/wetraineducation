@@ -200,7 +200,7 @@ export default function AdminComplaintsPage() {
       <section className="relative flex flex-col justify-center items-center bg-gradient-to-b from-yellow-200 to-white py-10 sm:py-14 text-center">
         <div className="max-w-3xl mx-auto px-6">
           <div className="flex items-center justify-center mb-3">
-            <div className="bg-[var(--primary-yellow)] p-2 rounded-lg mr-3">
+            <div className="bg-[var(--primary-yellow)] p-2 rounded-lg mr-3 sm:block hidden">
               <ClipboardList className="h-6 w-6 text-gray-900" />
             </div>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -656,8 +656,8 @@ export default function AdminComplaintsPage() {
           )}
 
           {pagination && pagination.totalPages > 1 && (
-            <div className="py-8 border-t border-gray-100">
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+            <div className="py-6 mt-6 border-t border-gray-100">
+              <div className="flex flex-col sm:flex-row sm:items-center text-center sm:justify-end sm:gap-5 justify-center">
                 <p className="text-sm text-gray-700 mb-4 sm:mb-0">
                   দেখানো হচ্ছে{" "}
                   <span className="font-medium">
@@ -674,7 +674,7 @@ export default function AdminComplaintsPage() {
                   অভিযোগ/মতামতের মধ্যে
                 </p>
 
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center justify-center space-x-2">
                   <button
                     onClick={() => fetchComplaints(pagination.page - 1)}
                     disabled={!pagination.hasPrev}
