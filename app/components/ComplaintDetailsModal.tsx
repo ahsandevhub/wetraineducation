@@ -3,7 +3,6 @@
 import { teamMembers } from "@/app/data/teamData";
 import {
   Building,
-  CheckCheck,
   ClipboardList,
   Eye,
   EyeOff,
@@ -13,6 +12,7 @@ import {
 } from "lucide-react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import MarkAsReadHeaderButton from "./MarkAsReadHeaderButton";
 
 interface Complaint {
   _id: string;
@@ -77,32 +77,21 @@ export default function ComplaintDetailsModal({
               </div>
             </div>
           </div>
-          <button
-            onClick={() => onMarkAsRead(complaint._id, !complaint.isRead)}
-            className={`py-1 sm:flex hidden px-3 ml-auto mr-3 gap-2 items-center rounded-full font-medium transition-colors ${
-              complaint.isRead
-                ? "bg-green-500 text-white hover:bg-green-600"
-                : "bg-yellow-500 text-white hover:bg-yellow-600"
-            }`}
-          >
-            {complaint.isRead ? (
-              <>
-                <CheckCheck className="h-5 w-5" />
-                <span>পড়া হয়েছে</span>
-              </>
-            ) : (
-              <>
-                <Eye className="h-5 w-5" />
-                <span>পড়া হয়নি</span>
-              </>
-            )}
-          </button>
-          <button
-            onClick={onClose}
-            className="p-1 rounded-md hover:bg-gray-100"
-          >
-            <X className="h-5 w-5" />
-          </button>
+          {/* Modal header actions: Mark as Read (if unread) or Close */}
+          {complaint.isRead ? (
+            <button
+              onClick={onClose}
+              className="p-1 ml-auto rounded-md hover:bg-gray-100"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          ) : (
+            <MarkAsReadHeaderButton
+              complaintId={complaint._id}
+              onMarkAsRead={onMarkAsRead}
+              onClose={onClose}
+            />
+          )}
         </div>
 
         {/* Content - Scrollable area */}

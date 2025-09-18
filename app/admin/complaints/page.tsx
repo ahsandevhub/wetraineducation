@@ -615,7 +615,7 @@ export default function AdminComplaintsPage() {
                           বিস্তারিত
                         </button>
 
-                        <button
+                        {/* <button
                           onClick={() =>
                             markAsRead(complaint._id, !complaint.isRead)
                           }
@@ -636,7 +636,7 @@ export default function AdminComplaintsPage() {
                               পঠিত
                             </>
                           )}
-                        </button>
+                        </button> */}
 
                         {session.user.role === "super-admin" && (
                           <button
