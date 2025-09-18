@@ -2,6 +2,7 @@ import { Toaster } from "react-hot-toast";
 import DisclaimerBanner from "./components/DisclaimerBanner";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Providers from "./components/Providers";
 import "./globals.css";
 
 export const metadata = {
@@ -18,11 +19,13 @@ export default function RootLayout({
   return (
     <html lang="bn">
       <body className={`font-sans antialiased bg-quinary-yellow`}>
-        <Toaster position="top-center" toastOptions={{ duration: 4000 }} />
-        <DisclaimerBanner />
-        <Header />
-        {children}
-        <Footer />
+        <Providers>
+          <Toaster position="top-center" toastOptions={{ duration: 4000 }} />
+          <DisclaimerBanner />
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
