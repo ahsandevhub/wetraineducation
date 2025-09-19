@@ -55,7 +55,7 @@ export default function ComplaintDetailsModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 bg-opacity-50">
-      <div className="bg-white rounded-xl max-w-2xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-xl">
+      <div className="bg-white rounded-xl max-w-3xl w-full max-h-[90vh] overflow-hidden flex flex-col shadow-xl">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-gray-200">
           <div className="flex items-center gap-3">
@@ -159,7 +159,7 @@ export default function ComplaintDetailsModal({
             <div className="text-sm font-medium text-gray-700 mb-1">
               অভিযোগ/মতামতের বিবরণ
             </div>
-            <div className="p-3 border border-dashed border-gray-200 rounded-lg bg-gray-50 text-sm text-gray-900 whitespace-pre-wrap max-h-40 overflow-y-auto">
+            <div className="p-3 border border-dashed border-gray-200 rounded-lg bg-gray-50 text-sm text-gray-900 whitespace-pre-wrap max-h-72 overflow-y-auto">
               {complaint.complaint.replace(/<[^>]*>/g, "") ||
                 "কোনো অভিযোগ/মতামতের বিবরণ নেই"}
             </div>
